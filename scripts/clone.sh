@@ -3,7 +3,7 @@
 GREEN='\e[32m'
 RED='\e[31m'
 RESET='\e[0m'
-
+SCRIPT_PATH=$(realpath "$0")
 set -e
 
 echo -e "${GREEN}#########################################################################${RESET}"
@@ -22,4 +22,4 @@ cd scripts && rm -rf clone.sh && chmod +x *.sh
 
 ./install_all.sh
 
-rm -- "$0"
+rm -- "$SCRIPT_PATH"
