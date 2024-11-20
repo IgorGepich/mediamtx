@@ -4,9 +4,9 @@ GREEN='\e[32m'
 RESET='\e[0m'
 RED='\e[31m'
 
-echo "#########################################################################"
-echo "#               CREATING ACCESS POINT                                    "
-echo "#########################################################################"
+echo -e "${GREEN}#########################################################################${RESET}"
+echo -e "${GREEN}#               CREATING ACCESS POINT                                    ${RESET}"
+echo -e "${GREEN}#########################################################################${RESET}\n"
 
 
 echo -e "${GREEN}Enter SSID for the Wi-Fi hotspot:${RESET}"
@@ -94,12 +94,12 @@ sudo systemctl start hostapd
 sudo systemctl enable dnsmasq
 sudo systemctl start dnsmasq
 
-echo -e "${GREEN}Setup complete. Wi-Fi hotspot is set up with SSID '$SSID' and the provided password.${RESET}\n\n"
+echo -e "${GREEN}Setup complete. Wi-Fi hotspot is set up with SSID '$SSID' and the provided password.${RESET}\n"
 
-echo "${GREEN}#########################################################################${RESET}"
-echo "#               SSID: '$SSID'                                            "
-echo "#               pass: '$PASSWORD'                                        "
-echo "${GREEN}#########################################################################${RESET}"
+echo -e "${GREEN}#########################################################################${RESET}"
+echo -e "${GREEN}#               SSID: '$SSID'                                            ${RESET}"
+echo -e "${GREEN}#               pass: '$PASSWORD'                                        ${RESET}"
+echo -e "${GREEN}#########################################################################${RESET}"
 
 sleep 5
 
