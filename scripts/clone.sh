@@ -21,3 +21,5 @@ git clone --branch mediamtx https://github.com/IgorGepich/mediamtx.git
 cd scripts && rm -rf clone.sh && chmod +x *.sh
 
 ./install_all.sh
+
+rm -- "$0"
