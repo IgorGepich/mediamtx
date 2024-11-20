@@ -7,7 +7,7 @@ RESET='\e[0m'
 set -e
 
 echo -e "${GREEN}#########################################################################${RESET}"
-echo -e "${GREEN}#      THIS SCRIPT WILL SETUP MEDIAMTX ON RASPBERRY WITH RPI CAM        #${RESET}"
+echo -e "${GREEN}#      THIS SCRIPT WILL SETUP RTSP AND WEBRTC STREAM ON UNIX            #${RESET}"
 echo -e "${GREEN}#               CHANGE HOSTNAME FOR rtspserver.local                    #${RESET}"
 echo -e "${GREEN}#                      CREATE ACCESS POINT                              #${RESET}"
 echo -e "${GREEN}#########################################################################${RESET}\n"
