@@ -122,10 +122,10 @@ echo "$NEW_HOSTNAME" | sudo tee /etc/hostname > /dev/null
 echo "Update file /etc/hosts"
 sudo sed -i "s/127\.0\.1\.1\s.*/127.0.1.1 $NEW_HOSTNAME/" /etc/hosts
 
-echo "Hostname has changed '$NEW_HOSTNAME'. Device will be reboot in 10 seconds."
+echo "Hostname has changed. Device must be reboot."
 
 echo "#########################################################################"
-echo "#               YOUR HOSTNAME IS rtspserver.local                       #"
+echo "#               YOUR HOSTNAME IS '$NEW_HOSTNAME'                        #"
 echo "#########################################################################"
 
 sleep 5
