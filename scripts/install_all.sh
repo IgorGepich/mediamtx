@@ -9,7 +9,7 @@ echo -e "\n${GREEN}Starting the stream setup...${RESET}\n"
 echo -e "\n${GREEN}Stream setup completed. Starting the changing hostname...${RESET}\n"
 ./change_hostname.sh
 
-echo -e \n"${GREEN}Hostname changing completed. Starting access point setup...${RESET}\n"
+echo -e "\n${GREEN}Hostname changing completed. Starting access point setup...${RESET}\n"
 ./rpi_access_point_setup.sh
 
 echo -e "\n${GREEN}All scripts completed successfully!${RESET}\n"
