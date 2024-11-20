@@ -7,7 +7,7 @@ RESET='\e[0m'
 RED='\e[31m'
 
 echo -e "${GREEN}#########################################################################${RESET}"
-echo -e "${GREEN}#      THIS SCRIPT WILL SETUP MEDIAMTX ON RASPBERRY WITH RPI CAM        #${RESET}"
+echo -e "${GREEN}#      THIS SCRIPT WILL SETUP RTSP AND WEBRTC STREAM ON UNIX SYSTEM     #${RESET}"
 echo -e "${GREEN}#########################################################################${RESET}\n"
 
 sleep 5
