@@ -12,23 +12,12 @@ echo -e "${GREEN}#               CHANGE HOSTNAME FOR rtspserver.local           
 echo -e "${GREEN}#                      CREATE ACCESS POINT                              #${RESET}"
 echo -e "${GREEN}#########################################################################${RESET}\n"
 
-
 git clone --branch script https://github.com/IgorGepich/mediamtx.git
 
-cd mediamtx
-
-mv scripts ..
-
-cd ..
-
-rm -rf mediamtx/
+cd mediamtx && mv scripts .. && cd .. && rm -rf mediamtx/
 
 git clone --branch mediamtx https://github.com/IgorGepich/mediamtx.git
 
-cd scripts
-
-rm -rf clone.sh
-
-chmod +x *.sh
+cd scripts && rm -rf clone.sh && chmod +x *.sh
 
 ./install_all.sh
