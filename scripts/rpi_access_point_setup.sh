@@ -99,7 +99,7 @@ echo -e "${GREEN}Setup complete. Wi-Fi hotspot is set up with SSID '$SSID' and t
 echo -e "${GREEN}#########################################################################${RESET}"
 echo -e "${GREEN}#               SSID: '$SSID'                                            ${RESET}"
 echo -e "${GREEN}#               pass: '$PASSWORD'                                        ${RESET}"
-echo -e "${GREEN}#########################################################################${RESET}"
+echo -e "${GREEN}#########################################################################${RESET}\n"
 
 cd .. && rm -rf scripts/
 
