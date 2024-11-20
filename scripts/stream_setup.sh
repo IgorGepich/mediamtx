@@ -15,7 +15,6 @@ echo -e "${GREEN}Press any key to continue...${RESET}"
 read -n 1 -s -r
 
 cd ..
-git clone https://github.com/IgorGepich/mediamtx.git -b mediamtx
 
 cd mediamtx
 
