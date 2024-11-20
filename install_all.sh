@@ -2,6 +2,16 @@
 
 set -e
 
+echo "#########################################################################"
+echo "#      THIS SCRIPT WILL SETUP MEDIAMTX ON RASPBERRY WITH RPI CAM        #"
+echo "#               CHANGE HOSTNAME FOR rtspserver.local                    #"
+echo "#                      CREATE ACCESS POINT                              #"
+echo "#########################################################################"
+
+sleep 5
+
+read -n 1 -s -r -p "Press any key to continue..."
+
 git clone https://github.com/IgorGepich/mediamtx.git -b mediamtx
 
 cd mediamtx
@@ -89,30 +99,37 @@ sudo systemctl start dnsmasq
 
 echo "Setup complete. Wi-Fi hotspot is set up...."
 
+echo "#########################################################################"
+echo "#               SSID: rtsp                                              #"
+echo "#               pass: Rtsprtsp                                          #"
+echo "#########################################################################"
+
+sleep 5
+
+read -n 1 -s -r -p "Press any key to continue..."
 
 ####################################################################
 
-# New HOSTNAME
+echo "New HOSTNAME"
 NEW_HOSTNAME="rtspserver.local"
 
-# Setting hostname
+echo "Setting hostname"
 sudo hostnamectl set-hostname "$NEW_HOSTNAME"
 
-# Update file /etc/hostname
+echo "Update file /etc/hostname"
 echo "$NEW_HOSTNAME" | sudo tee /etc/hostname > /dev/null
 
-# Update file /etc/hosts
+echo "Update file /etc/hosts"
 sudo sed -i "s/127\.0\.1\.1\s.*/127.0.1.1 $NEW_HOSTNAME/" /etc/hosts
 
 echo "Hostname has changed '$NEW_HOSTNAME'. Device will be reboot in 10 seconds."
 
 echo "#########################################################################"
 echo "#               YOUR HOSTNAME IS rtspserver.local                       #"
-echo "#               SSID: rtsp                                              #"
-echo "#               pass: Rtsprtsp                                          #"
 echo "#########################################################################"
 
-sleep 10
+sleep 5
+
 read -n 1 -s -r -p "Press any key to reboot"
 
 sudo reboot
