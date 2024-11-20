@@ -102,6 +102,4 @@ echo "#########################################################################"
 
 sleep 5
 
-read -n 1 -s -r -p "${GREEN}Press any key to reboot..${RESET}"
-
-sudo reboot
+read -n 1 -s -r -p "${GREEN}Press any key to continue${RESET}"

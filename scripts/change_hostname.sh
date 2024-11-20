@@ -24,7 +24,5 @@ echo -e "${GREEN}###############################################################
 
 sleep 5
 
-echo -e "${RED}Press any key to reboot...${RESET}"
+echo -e "${RED}Press any key to continue...${RESET}"
 read -n 1 -s -r
-
-sudo reboot
