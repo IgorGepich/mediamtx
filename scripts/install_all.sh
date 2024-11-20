@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Цвета
 GREEN='\e[32m'
 RESET='\e[0m'
 
