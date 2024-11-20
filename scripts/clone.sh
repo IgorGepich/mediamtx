@@ -31,7 +31,7 @@ cd ..
     rm -- "$SCRIPT_PATH"
 ) &
 
-rm -- "$0"
+
 
 
 sudo reboot
