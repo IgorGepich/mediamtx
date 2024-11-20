@@ -105,4 +105,5 @@ cd .. && rm -rf scripts/
 
 sleep 5
 
-read -n 1 -s -r -p "${RED}Press any key to continue...${RESET}"
+echo -e "${RED}Press any key to continue...${RESET}\n"
+read -n 1 -s -r
