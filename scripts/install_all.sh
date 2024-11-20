@@ -25,3 +25,5 @@ read -n 1 -s -r
     rm -- "$SCRIPT_PATH"
 ) &
 
+cd ..
+
