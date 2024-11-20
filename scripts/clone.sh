@@ -6,22 +6,16 @@ RESET='\e[0m'
 
 set -e
 
-echo "${GREEN}#########################################################################${RESET}"
-echo "${GREEN}#      THIS SCRIPT WILL SETUP MEDIAMTX ON RASPBERRY WITH RPI CAM        #${RESET}"
-echo "${GREEN}#               CHANGE HOSTNAME FOR rtspserver.local                    #${RESET}"
-echo "${GREEN}#                      CREATE ACCESS POINT                              #${RESET}"
-echo "${GREEN}#########################################################################${RESET}"
+echo -e "${GREEN}#########################################################################${RESET}"
+echo -e "${GREEN}#      THIS SCRIPT WILL SETUP MEDIAMTX ON RASPBERRY WITH RPI CAM        #${RESET}"
+echo -e "${GREEN}#               CHANGE HOSTNAME FOR rtspserver.local                    #${RESET}"
+echo -e "${GREEN}#                      CREATE ACCESS POINT                              #${RESET}"
+echo -e "${GREEN}#########################################################################${RESET}"
 
 
 git clone --branch script https://github.com/IgorGepich/mediamtx.git
 
 cd mediamtx
-
-cd scripts
-
-rm -rf clone.sh
-
-cd ..
 
 mv scripts ..
 
@@ -32,5 +26,9 @@ rm -rf mediamtx/
 git clone --branch mediamtx https://github.com/IgorGepich/mediamtx.git
 
 cd scripts
+
+rm -rf clone.sh
+
+chmod +x *.sh
 
 ./install_all.sh
