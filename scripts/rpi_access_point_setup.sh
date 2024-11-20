@@ -101,6 +101,8 @@ echo -e "${GREEN}#               SSID: '$SSID'                                  
 echo -e "${GREEN}#               pass: '$PASSWORD'                                        ${RESET}"
 echo -e "${GREEN}#########################################################################${RESET}"
 
+cd .. && rm -rf scripts/
+
 sleep 5
 
 read -n 1 -s -r -p "${RED}Press any key to continue...${RESET}"
