@@ -7,7 +7,7 @@ wget https://raw.githubusercontent.com/IgorGepich/mediamtx/refs/heads/rpi_config
 sudo chmod +x mediamtx
 
 # New HOSTNAME
-NEW_HOSTNAME="compute"
+NEW_HOSTNAME="rtspserver.local"
 
 # Setting hostname
 sudo hostnamectl set-hostname "$NEW_HOSTNAME"
