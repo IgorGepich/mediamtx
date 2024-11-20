@@ -15,9 +15,7 @@ sleep 5
 echo -e "${RED}Press any key to continue...${RESET}"
 read -n 1 -s -r
 
-cd ..
-
-cd mediamtx
+cd .. && cd mediamtx
 
 wget https://raw.githubusercontent.com/IgorGepich/mediamtx/refs/heads/rpi_config/mediamtx.yml
 
