@@ -26,12 +26,12 @@ cd ..
 cd ..
 
 #cd $(dirname "$SCRIPT_PATH") && rm -- "$SCRIPT_PATH"
-(
-    sleep 2
-    rm -- "$SCRIPT_PATH"
-) &
+#(
+#    sleep 2
+#    rm -- "$SCRIPT_PATH"
+#) &
 
-
+rm -- "$0"
 
 
 sudo reboot
