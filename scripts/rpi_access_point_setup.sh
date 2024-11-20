@@ -2,6 +2,7 @@
 
 GREEN='\e[32m'
 RESET='\e[0m'
+RED='\e[31m'
 
 echo "#########################################################################"
 echo "#               CREATING ACCESS POINT                                    "
@@ -95,11 +96,11 @@ sudo systemctl start dnsmasq
 
 echo -e "${GREEN}Setup complete. Wi-Fi hotspot is set up with SSID '$SSID' and the provided password.${RESET}\n\n"
 
-echo "#########################################################################"
+echo "${GREEN}#########################################################################${RESET}"
 echo "#               SSID: '$SSID'                                            "
 echo "#               pass: '$PASSWORD'                                        "
-echo "#########################################################################"
+echo "${GREEN}#########################################################################${RESET}"
 
 sleep 5
 
-read -n 1 -s -r -p "${GREEN}Press any key to continue${RESET}"
+read -n 1 -s -r -p "${RED}Press any key to continue...${RESET}"

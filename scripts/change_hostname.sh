@@ -18,8 +18,8 @@ sudo sed -i "s/127\.0\.1\.1\s.*/127.0.1.1 $NEW_HOSTNAME/" /etc/hosts
 
 echo -e "${GREEN}Hostname has changed. Device must be reboot.${RESET}\n"
 
-echo -e "${GREEN}#########################################################################${RESET}\n"
-echo -e "${GREEN}#               YOUR HOSTNAME IS '$NEW_HOSTNAME'                        #${RESET}\n"
+echo -e "${GREEN}#########################################################################${RESET}"
+echo -e "${GREEN}#               YOUR HOSTNAME IS '$NEW_HOSTNAME'                        #${RESET}"
 echo -e "${GREEN}#########################################################################${RESET}\n"
 
 sleep 5
