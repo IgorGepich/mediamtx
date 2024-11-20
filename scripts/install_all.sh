@@ -3,6 +3,7 @@
 GREEN='\e[32m'
 RED='\e[31m'
 RESET='\e[0m'
+SCRIPT_PATH=$(realpath "$0")
 
 echo -e "\n${GREEN}Starting the stream setup...${RESET}\n"
 ./stream_setup.sh
@@ -19,5 +20,8 @@ echo -e "\n${RED}Press any key to reboot...${RESET}"
 
 read -n 1 -s -r
 
-rm -- "$0"
+(
+    sleep 2
+    rm -- "$SCRIPT_PATH"
+) &
 
