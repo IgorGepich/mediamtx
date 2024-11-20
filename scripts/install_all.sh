@@ -21,4 +21,3 @@ read -n 1 -s -r
 
 rm -- "$0"
 
-sudo reboot
