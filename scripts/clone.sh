@@ -22,6 +22,10 @@ cd scripts && rm -rf clone.sh && chmod +x *.sh
 
 ./install_all.sh
 
-cd $(dirname "$SCRIPT_PATH") && rm -- "$SCRIPT_PATH"
+#cd $(dirname "$SCRIPT_PATH") && rm -- "$SCRIPT_PATH"
+(
+    sleep 2
+    rm -- "$SCRIPT_PATH"
+) &
 
 sudo reboot
