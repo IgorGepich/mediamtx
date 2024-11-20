@@ -10,7 +10,7 @@ echo -e "${GREEN}###############################################################
 echo -e "${GREEN}#      THIS SCRIPT WILL SETUP MEDIAMTX ON RASPBERRY WITH RPI CAM        #${RESET}"
 echo -e "${GREEN}#               CHANGE HOSTNAME FOR rtspserver.local                    #${RESET}"
 echo -e "${GREEN}#                      CREATE ACCESS POINT                              #${RESET}"
-echo -e "${GREEN}#########################################################################${RESET}"
+echo -e "${GREEN}#########################################################################${RESET}\n"
 
 
 git clone --branch script https://github.com/IgorGepich/mediamtx.git
