@@ -4,7 +4,6 @@ GREEN='\e[32m'
 RED='\e[31m'
 RESET='\e[0m'
 
-# Подключаем логирование
 source ./logging.sh
 
 USERNAME=$(whoami)
@@ -12,7 +11,7 @@ SCRIPT_PATH="/home/$USERNAME/mediamtx/mediamtx"
 
 log_info "Script started."
 
-echo -e "${GREEN}Do you want to create a systemd service for the 'mediamtx' script? (y/n): ${RESET}"
+echo -e "\n${RED}Do you want to create a systemd service for the RTCP and WEBRTC stream script? (y/n): ${RESET}"
 
 attempt=0
 while [[ $attempt -lt 3 ]]; do
