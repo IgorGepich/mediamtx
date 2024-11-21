@@ -19,7 +19,7 @@ cd mediamtx && mv scripts .. && cd .. && rm -rf mediamtx/
 
 git clone --branch mediamtx https://github.com/IgorGepich/mediamtx.git
 
-cd scripts && rm -rf clone.sh && chmod +x *.sh
+cd scripts && chmod +x *.sh
 
 ./install_all.sh
 
