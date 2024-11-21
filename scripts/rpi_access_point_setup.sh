@@ -23,6 +23,32 @@ log_error() {
 
 log_info "Starting Wi-Fi hotspot setup..."
 
+log_info "Checking if 'hostapd' is installed and running..."
+
+if ! dpkg -l | grep -qw hostapd; then
+    log_warning "'hostapd' is not installed. Installing..."
+    if sudo apt update && sudo apt install -y hostapd; then
+        log_info "'hostapd' installed successfully."
+    else
+        log_error "Failed to install 'hostapd'. Exiting."
+        exit 1
+    fi
+else
+    log_info "'hostapd' is already installed."
+fi
+
+if systemctl is-active --quiet hostapd; then
+    log_info "'hostapd.service' is already running."
+else
+    log_warning "'hostapd.service' is not active. Attempting to start..."
+    if sudo systemctl unmask hostapd && sudo systemctl enable hostapd && sudo systemctl start hostapd; then
+        log_info "'hostapd.service' started successfully."
+    else
+        log_error "Failed to start 'hostapd.service'. Check logs for details. Exiting."
+        exit 1
+    fi
+fi
+
 echo -e "${GREEN}Enter SSID for the Wi-Fi hotspot:${RESET}"
 read SSID
 log_info "User entered SSID: $SSID"
