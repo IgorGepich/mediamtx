@@ -32,13 +32,13 @@ else
     exit 1
 fi
 
-log_info "Starting the access point setup script..." | tee -a "$LOGFILE"
-if ./rpi_access_point_setup.sh 2>&1 | tee -a "$LOGFILE"; then
-    log_info "Access point setup completed successfully." | tee -a "$LOGFILE"
-else
-    log_error "Access point setup failed." | tee -a "$LOGFILE"
-    exit 1
-fi
+#log_info "Starting the access point setup script..." | tee -a "$LOGFILE"
+#if ./rpi_access_point_setup.sh 2>&1 | tee -a "$LOGFILE"; then
+#    log_info "Access point setup completed successfully." | tee -a "$LOGFILE"
+#else
+#    log_error "Access point setup failed." | tee -a "$LOGFILE"
+#    exit 1
+#fi
 
 log_info "All scripts completed successfully!" | tee -a "$LOGFILE"
 
