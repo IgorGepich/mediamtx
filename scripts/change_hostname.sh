@@ -59,8 +59,8 @@ echo -e "${GREEN}Hostname has changed. Device must be reboot.${RESET}\n"
 
 log_info "Displaying hostname: $NEW_HOSTNAME"
 
-echo -e "${GREEN}#########################################################################${RESET}"
-echo -e "${GREEN}#               YOUR HOSTNAME IS '$NEW_HOSTNAME'                         ${RESET}"
+echo -e "\n${GREEN}#########################################################################${RESET}"
+echo -e "${GREEN}                YOUR HOSTNAME IS '$NEW_HOSTNAME'                         ${RESET}"
 echo -e "${GREEN}#########################################################################${RESET}\n"
 
 sleep 5
