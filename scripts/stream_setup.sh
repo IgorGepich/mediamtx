@@ -6,13 +6,13 @@ GREEN='\e[32m'
 RESET='\e[0m'
 RED='\e[31m'
 
-echo -e "/n${GREEN}#########################################################################${RESET}"
+echo -e "\n${GREEN}#########################################################################${RESET}"
 echo -e "${GREEN}      THIS SCRIPT WILL SETUP RTSP AND WEBRTC STREAM ON UNIX SYSTEM         ${RESET}"
 echo -e "${GREEN}#########################################################################  ${RESET}\n"
 
 sleep 5
 
-echo -e "\n${RED}Press any key to continue...${RESET}"
+echo -e "\n${RED}Press any key to continue...${RESET}\n"
 read -n 1 -s -r
 
 cd .. && cd mediamtx
