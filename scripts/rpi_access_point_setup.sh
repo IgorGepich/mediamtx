@@ -177,6 +177,6 @@ sleep 5
 
 log_info "Setup complete. User prompted to continue."
 
-echo -e "${RED}Press any key to continue...${RESET}\n"
+echo -e "\n${RED}Press any key to continue...${RESET}\n"
 read -n 1 -s -r
 log_info "User pressed a key. Setup complete."

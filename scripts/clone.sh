@@ -33,6 +33,6 @@ cd ..
 
 rm -- "$0"
 
-echo -e "${RED}Press any key to reboot...${RESET}\n"
+echo -e "\n${RED}Press any key to reboot...${RESET}\n"
 read -n 1 -s -r
 sudo reboot
