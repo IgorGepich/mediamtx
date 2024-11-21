@@ -8,6 +8,9 @@ RESET='\e[0m'
 LOGFILE="access_point_setup.log"
 LOG_TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 
+MAX_ATTEMPTS=3  # Максимальное количество попыток
+attempts=0
+
 log_info() {
     echo -e "${GREEN}[$LOG_TIMESTAMP] INFO: $1${RESET}"
     echo "[$LOG_TIMESTAMP] INFO: $1" >> "$LOGFILE"
@@ -24,15 +27,27 @@ echo -e "${GREEN}Enter SSID for the Wi-Fi hotspot:${RESET}"
 read SSID
 log_info "User entered SSID: $SSID"
 
-echo -e "${GREEN}Enter password for the Wi-Fi hotspot (at least 8 characters long):${RESET}"
-read -sp "" PASSWORD
-echo
+while [ $attempts -lt $MAX_ATTEMPTS ]; do
+    echo -e "${GREEN}Enter password for the Wi-Fi hotspot (at least 8 characters long):${RESET}"
+    read -sp "" PASSWORD
+    echo
 
-if [ ${#PASSWORD} -lt 8 ]; then
-    log_error "Password must be at least 8 characters long."
-    exit 1
-fi
-log_info "User entered a valid password."
+    if [ ${#PASSWORD} -ge 8 ]; then
+        log_info "User entered a valid password."
+        echo -e "${GREEN}Password accepted.${RESET}\n"
+        break
+    else
+        log_error "Password must be at least 8 characters long."
+        echo -e "${RED}Invalid password. Try again.${RESET}\n"
+        ((attempts++))
+    fi
+
+    if [ $attempts -eq $MAX_ATTEMPTS ]; then
+        log_error "User failed to enter a valid password in $MAX_ATTEMPTS attempts."
+        echo -e "${RED}Maximum attempts reached. Exiting...${RESET}\n"
+        exit 1
+    fi
+done
 
 log_info "Updating and upgrading packets..."
 if sudo apt update && sudo apt upgrade -y; then
