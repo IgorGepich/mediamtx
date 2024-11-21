@@ -25,6 +25,8 @@ cd scripts && chmod +x *.sh
 
 cd ..
 
+rm -rf .git/ && rm -rf .gitignore
+
 #cd $(dirname "$SCRIPT_PATH") && rm -- "$SCRIPT_PATH"
 #(
 #    sleep 2
