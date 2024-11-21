@@ -25,7 +25,7 @@ cd scripts && chmod +x *.sh
 
 cd ..
 
-rm -rf .git/ && rm -rf .gitignore
+cd mediamtx && rm -rf .git/ && rm -rf .gitignore && cd .. && rm -rf scripts/
 
 #cd $(dirname "$SCRIPT_PATH") && rm -- "$SCRIPT_PATH"
 #(

@@ -186,7 +186,7 @@ echo -e "${GREEN}                SSID: '$SSID'                                  
 echo -e "${GREEN}                pass: '$PASSWORD'                                        ${RESET}"
 echo -e "${GREEN}#########################################################################${RESET}\n"
 
-cd .. && rm -rf scripts/
+#cd .. && rm -rf scripts/
 
 sleep 5
 
