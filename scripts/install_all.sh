@@ -16,6 +16,14 @@ else
     exit 1
 fi
 
+log_info "Starting the system service setup script..." | tee -a "$LOGFILE"
+if ./system_service_setup.sh 2>&1 | tee -a "$LOGFILE"; then
+    log_info "System service setup completed successfully." | tee -a "$LOGFILE"
+else
+    log_error "System service setup failed." | tee -a "$LOGFILE"
+    exit 1
+fi
+
 log_info "Starting the hostname change script..." | tee -a "$LOGFILE"
 if ./change_hostname.sh 2>&1 | tee -a "$LOGFILE"; then
     log_info "Hostname changing completed successfully." | tee -a "$LOGFILE"
