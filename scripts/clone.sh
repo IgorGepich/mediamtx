@@ -4,9 +4,10 @@ GREEN='\e[32m'
 RED='\e[31m'
 RESET='\e[0m'
 SCRIPT_PATH=$(realpath "$0")
+
 set -e
 
-echo -e "${GREEN}#########################################################################${RESET}"
+echo -e "\n${GREEN}#########################################################################${RESET}"
 echo -e "${GREEN}#      THIS SCRIPT WILL SETUP RTSP AND WEBRTC STREAM ON UNIX SYSTEM     #${RESET}"
 echo -e "${GREEN}#               CHANGE HOSTNAME FOR rtspserver.local                    #${RESET}"
 echo -e "${GREEN}#                      CREATE ACCESS POINT                              #${RESET}"
@@ -24,7 +25,6 @@ cd scripts && rm -rf clone.sh && chmod +x *.sh
 
 cd ..
 
-
 #cd $(dirname "$SCRIPT_PATH") && rm -- "$SCRIPT_PATH"
 #(
 #    sleep 2
@@ -33,5 +33,6 @@ cd ..
 
 rm -- "$0"
 
-
+echo -e "${RED}Press any key to reboot...${RESET}\n"
+read -n 1 -s -r
 sudo reboot
