@@ -80,6 +80,7 @@ fi
 
 log_info "Configuring hostapd..."
 HOSTAPD_CONF="
+country_code=US
 interface=wlan0
 ssid=$SSID
 hw_mode=g
