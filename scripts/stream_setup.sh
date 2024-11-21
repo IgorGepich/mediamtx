@@ -12,7 +12,7 @@ echo -e "${GREEN}###############################################################
 
 sleep 5
 
-echo -e "\n${RED}Press any key to continue...${RESET}\n"
+echo -e "${RED}Press any key to continue...${RESET}\n"
 read -n 1 -s -r
 
 cd .. && cd mediamtx

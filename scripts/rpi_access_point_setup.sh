@@ -8,7 +8,7 @@ RESET='\e[0m'
 LOGFILE="access_point_setup.log"
 LOG_TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 
-MAX_ATTEMPTS=3  # Максимальное количество попыток
+MAX_ATTEMPTS=3
 attempts=0
 
 log_info() {

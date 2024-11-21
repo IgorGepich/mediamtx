@@ -34,10 +34,4 @@ fi
 
 log_info "All scripts completed successfully!" | tee -a "$LOGFILE"
 
-#log_info "Deleting the main script: $SCRIPT_PATH..." | tee -a "$LOGFILE"
-#(
-#    sleep 2
-#    rm -- "$SCRIPT_PATH"
-#) &
-
 cd ..
