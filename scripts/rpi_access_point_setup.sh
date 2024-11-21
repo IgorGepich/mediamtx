@@ -1,39 +1,69 @@
 #!/bin/bash
 
 GREEN='\e[32m'
-RESET='\e[0m'
 RED='\e[31m'
+RESET='\e[0m'
 
-echo -e "${GREEN}#########################################################################${RESET}"
-echo -e "${GREEN}#               CREATING ACCESS POINT                                    ${RESET}"
-echo -e "${GREEN}#########################################################################${RESET}\n"
+# Log file setup
+LOGFILE="access_point_setup.log"
+LOG_TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 
+log_info() {
+    echo -e "${GREEN}[$LOG_TIMESTAMP] INFO: $1${RESET}"
+    echo "[$LOG_TIMESTAMP] INFO: $1" >> "$LOGFILE"
+}
+
+log_error() {
+    echo -e "${RED}[$LOG_TIMESTAMP] ERROR: $1${RESET}"
+    echo "[$LOG_TIMESTAMP] ERROR: $1" >> "$LOGFILE"
+}
+
+log_info "Starting Wi-Fi hotspot setup..."
 
 echo -e "${GREEN}Enter SSID for the Wi-Fi hotspot:${RESET}"
 read SSID
+log_info "User entered SSID: $SSID"
+
 echo -e "${GREEN}Enter password for the Wi-Fi hotspot (at least 8 characters long):${RESET}"
 read -sp "" PASSWORD
 echo
 
 if [ ${#PASSWORD} -lt 8 ]; then
-    echo -e "${GREEN}Error: Password must be at least 8 characters long.${RESET}"
+    log_error "Password must be at least 8 characters long."
+    exit 1
+fi
+log_info "User entered a valid password."
+
+log_info "Updating and upgrading packets..."
+if sudo apt update && sudo apt upgrade -y; then
+    log_info "System updated and upgraded successfully."
+else
+    log_error "Failed to update and upgrade packets."
     exit 1
 fi
 
-echo -e "${GREEN}Update and upgrade packets...${RESET}"
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y hostapd dnsmasq iptables-persistent
+log_info "Installing required packages..."
+if sudo apt install -y hostapd dnsmasq iptables-persistent; then
+    log_info "Required packages installed successfully."
+else
+    log_error "Failed to install required packages."
+    exit 1
+fi
 
-echo -e "${GREEN}Setup static IP address for wlan0 interface...${RESET}"
+log_info "Setting static IP address for wlan0 interface..."
 STATIC_IP_CONF="
 interface wlan0
 static ip_address=192.168.4.1/24
 nohook wpa_supplicant
 "
-echo "$STATIC_IP_CONF" | sudo tee -a /etc/dhcpcd.conf > /dev/null
-sudo systemctl restart dhcpcd
+if echo "$STATIC_IP_CONF" | sudo tee -a /etc/dhcpcd.conf > /dev/null && sudo systemctl restart dhcpcd; then
+    log_info "Static IP address set successfully."
+else
+    log_error "Failed to set static IP address."
+    exit 1
+fi
 
-echo -e "${GREEN}Setup hostapd for creating access point...${RESET}"
+log_info "Configuring hostapd..."
 HOSTAPD_CONF="
 interface=wlan0
 ssid=$SSID
@@ -49,61 +79,104 @@ wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
 "
-echo "$HOSTAPD_CONF" | sudo tee /etc/hostapd/hostapd.conf > /dev/null
+if echo "$HOSTAPD_CONF" | sudo tee /etc/hostapd/hostapd.conf > /dev/null; then
+    log_info "Hostapd configured successfully."
+else
+    log_error "Failed to configure hostapd."
+    exit 1
+fi
 
-echo -e "${GREEN}Install hostapd configuration...${RESET}"
-sudo sed -i "s|#DAEMON_CONF=\"\"|DAEMON_CONF=\"/etc/hostapd/hostapd.conf\"|" /etc/default/hostapd
+log_info "Installing hostapd configuration..."
+if sudo sed -i "s|#DAEMON_CONF=\"\"|DAEMON_CONF=\"/etc/hostapd/hostapd.conf\"|" /etc/default/hostapd; then
+    log_info "Hostapd configuration installed."
+else
+    log_error "Failed to install hostapd configuration."
+    exit 1
+fi
 
-echo -e "${GREEN}Setup dnsmasq...${RESET}"
+log_info "Configuring dnsmasq..."
 DNSMASQ_CONF="
 interface=wlan0
 dhcp-range=192.168.4.2,192.168.4.20,255.255.255.0,24h
 "
-echo "$DNSMASQ_CONF" | sudo tee /etc/dnsmasq.conf > /dev/null
+if echo "$DNSMASQ_CONF" | sudo tee /etc/dnsmasq.conf > /dev/null; then
+    log_info "Dnsmasq configured successfully."
+else
+    log_error "Failed to configure dnsmasq."
+    exit 1
+fi
 
-echo -e "${GREEN}Setup DNS in /etc/resolv.conf...${RESET}"
+log_info "Setting up DNS in /etc/resolv.conf..."
 RESOLV_CONF="
 nameserver 8.8.8.8
 nameserver 8.8.4.4
 "
-echo "$RESOLV_CONF" | sudo tee /etc/resolv.conf > /dev/null
+if echo "$RESOLV_CONF" | sudo tee /etc/resolv.conf > /dev/null; then
+    log_info "DNS configuration updated."
+else
+    log_error "Failed to update DNS configuration."
+    exit 1
+fi
 
-echo -e "${GREEN}Restart dnsmasq...${RESET}"
-sudo systemctl restart dnsmasq
+log_info "Restarting dnsmasq..."
+if sudo systemctl restart dnsmasq; then
+    log_info "Dnsmasq restarted successfully."
+else
+    log_error "Failed to restart dnsmasq."
+    exit 1
+fi
 
-echo -e "${GREEN}Setup IPv4...${RESET}"
-sudo sed -i "s|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|" /etc/sysctl.conf
-sudo sysctl -p
+log_info "Enabling IPv4 forwarding..."
+if sudo sed -i "s|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|" /etc/sysctl.conf && sudo sysctl -p; then
+    log_info "IPv4 forwarding enabled."
+else
+    log_error "Failed to enable IPv4 forwarding."
+    exit 1
+fi
 
-echo -e "${GREEN}Setup NAT (Network Address Translation)...${RESET}"
-sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
+log_info "Setting up NAT (Network Address Translation)..."
+if sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE && sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"; then
+    log_info "NAT setup completed successfully."
+else
+    log_error "Failed to set up NAT."
+    exit 1
+fi
 
-echo -e "${GREEN}Creating a script to restore iptables on boot...${RESET}"
+log_info "Creating script to restore iptables on boot..."
 RESTORE_SCRIPT="/etc/network/if-up.d/iptables"
-sudo bash -c "cat > $RESTORE_SCRIPT" << EOF
+if sudo bash -c "cat > $RESTORE_SCRIPT" << EOF
 #!/bin/sh
 iptables-restore < /etc/iptables.ipv4.nat
 EOF
-sudo chmod +x $RESTORE_SCRIPT
+    sudo chmod +x $RESTORE_SCRIPT; then
+    log_info "Restore script created successfully."
+else
+    log_error "Failed to create restore script."
+    exit 1
+fi
 
-echo -e "${GREEN}Applying settings and enabling services...${RESET}"
-sudo systemctl unmask hostapd
-sudo systemctl enable hostapd
-sudo systemctl start hostapd
-sudo systemctl enable dnsmasq
-sudo systemctl start dnsmasq
+log_info "Applying settings and enabling services..."
+if sudo systemctl unmask hostapd && sudo systemctl enable hostapd && sudo systemctl start hostapd && sudo systemctl enable dnsmasq && sudo systemctl start dnsmasq; then
+    log_info "All settings applied and services enabled successfully."
+else
+    log_error "Failed to apply settings or enable services."
+    exit 1
+fi
 
-echo -e "${GREEN}Setup complete. Wi-Fi hotspot is set up with SSID '$SSID' and the provided password.${RESET}\n"
+log_info "Setup complete. Wi-Fi hotspot is set up with SSID '$SSID'."
+log_info "SSID: $SSID, Password: $PASSWORD"
 
-echo -e "${GREEN}#########################################################################${RESET}"
-echo -e "${GREEN}#               SSID: '$SSID'                                            ${RESET}"
-echo -e "${GREEN}#               pass: '$PASSWORD'                                        ${RESET}"
+echo -e "\n${GREEN}#########################################################################${RESET}"
+echo -e "${GREEN}                SSID: '$SSID'                                            ${RESET}"
+echo -e "${GREEN}                pass: '$PASSWORD'                                        ${RESET}"
 echo -e "${GREEN}#########################################################################${RESET}\n"
 
 cd .. && rm -rf scripts/
 
 sleep 5
 
+log_info "Setup complete. User prompted to continue."
+
 echo -e "${RED}Press any key to continue...${RESET}\n"
 read -n 1 -s -r
+log_info "User pressed a key. Setup complete."
