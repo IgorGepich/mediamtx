@@ -3,10 +3,10 @@ version: '3.7'
 services:
   mediamtx:
     image: bluenviron/mediamtx:latest-ffmpeg-rpi
-    container_name: mediamtx
-    restart: always  # Это гарантирует, что контейнер будет перезапущен при сбое или перезагрузке системы
-    network_mode: host  # Использует хостовую сеть
-    privileged: true  # Дает контейнеру привилегии
+    container_name: rtsp_stram
+    restart: always
+    network_mode: host
+    privileged: true
     devices:
       - "/dev/video0:/dev/video0"
       - "/dev/vchiq:/dev/vchiq"
