@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  mediamtx:
+    image: bluenviron/mediamtx:latest-ffmpeg-rpi
+    container_name: mediamtx
+    restart: always  # Это гарантирует, что контейнер будет перезапущен при сбое или перезагрузке системы
+    network_mode: host  # Использует хостовую сеть
+    privileged: true  # Дает контейнеру привилегии
+    devices:
+      - "/dev/video0:/dev/video0"
+      - "/dev/vchiq:/dev/vchiq"
+      - "/dev/vcio:/dev/vcio"
+      - "/dev/media0:/dev/media0"
+    volumes:
+      - ./mediamtx.yml:/mediamtx.yml
+    environment:
+      MTX_CONFIG: /mediamtx.yml
+      MTX_PROTOCOLS: tcp
+      MTX_WEBRTCADDITIONALHOSTS: 10.0.1.12
+    ports:
+      - "8554:8554"
+      - "1935:1935"
+      - "8888:8888"
+      - "8889:8889"
+      - "9997:9997"
+      - "8890:8890/udp"
+      - "8189:8189/udp"
